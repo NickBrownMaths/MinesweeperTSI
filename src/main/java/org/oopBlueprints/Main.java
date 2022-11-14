@@ -37,7 +37,6 @@ public class Main {
                 else {
                     setupComplete = true ;
                     minesweeperGrid = new MinesweeperGrid(rowsSetup, colsSetup, minesSetup) ;
-                    minesweeperGrid.populateMines();
                 }
 
 

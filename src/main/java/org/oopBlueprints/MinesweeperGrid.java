@@ -10,6 +10,7 @@ public class MinesweeperGrid {
     int plantedFlags = 0 ;
     boolean gameLost = false ;
     boolean gameWon = false ;
+    boolean populatedMines = false ;
 
     MinesweeperSquare[][] grid;
 
@@ -39,6 +40,22 @@ public class MinesweeperGrid {
                 ++minesAdded;
             }
         }
+    }
+    public void populateMinesExcluding(int exclRow, int exclCol) {
+        int minesAdded = 0 ;
+        int cntr = 0 ;
+        grid[exclRow][exclCol].isMine = true ;
+
+        while (minesAdded < this.mines) {
+            cntr++;
+            int newMineRow = (int) Math.round(Math.random() * (this.rows - 1));
+            int newMineCol = (int) Math.round(Math.random() * (this.cols - 1));
+            if (grid[newMineRow][newMineCol].isMine == false) {
+                grid[newMineRow][newMineCol].isMine = true;
+                ++minesAdded;
+            }
+        }
+        grid[exclRow][exclCol].isMine = false ;
     }
     public void printGrid () {
         // Print Header
@@ -94,9 +111,6 @@ public class MinesweeperGrid {
             }
             System.out.println();
         }
-        // Print footer
-        System.out.println("Use \"row col t\" to test, use \"row col f\" to plant a flag.");
-
     }
     public void click(int row, int col, boolean plantFlag) {
         // Are we simply marking a flag?
@@ -111,6 +125,12 @@ public class MinesweeperGrid {
         }
         // Are we clicking for real?
         else {
+            // if it's the first click, populate the mines
+            if (populatedMines == false) {
+                this.populateMinesExcluding(row, col);
+                populatedMines = true ;
+            }
+
             // Check if it is a mine
             if (this.grid[row][col].isMine == true) {
                 this.grid[row][col].flag = 'Q' ;
