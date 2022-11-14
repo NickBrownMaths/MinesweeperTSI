@@ -84,7 +84,7 @@ public class MinesweeperGrid {
             System.out.println();
         }
         // Print footer
-        System.out.println("Use \"row col t\" to test, use \"row col f\" to plant a flag.");
+        System.out.println("Use \"row col r\" to reveal, use \"row col f\" to plant a flag.");
 
     }
     public void printSolution () {

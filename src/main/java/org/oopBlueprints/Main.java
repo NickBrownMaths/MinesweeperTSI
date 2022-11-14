@@ -62,11 +62,11 @@ public class Main {
 
                 if (clickRow != 1000000 && clickCol != 1000000
                         && clickRow < minesweeperGrid.rows && clickCol < minesweeperGrid.cols
-                        && (plantFlag == 't' || plantFlag == 'f')) {
+                        && (plantFlag == 'r' || plantFlag == 'f')) {
                     noValidCommand = false;
                 }
                 else {
-                    System.out.println("Please enter a valid choice. Use \"row col t\" to test, use \"row col f\" to plant a flag.");
+                    System.out.println("Please enter a valid choice. Use \"row col r\" to reveal, use \"row col f\" to plant a flag.");
                 }
 
                 // If the user has given a valid command execute it
