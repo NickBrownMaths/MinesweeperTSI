@@ -1,14 +1,14 @@
 package org.oopBlueprints ;
 public class MinesweeperSquare {
 
-    char flag = 'X';
+    char flag = '.';
     boolean isMine = false;
 
     // [SPACE] empty with no adjacent mines
     // Q mine
     // P flag
     // 12345678 neighbour mines
-    // X unknown
+    // . unknown
 
     public void MinesweeperSquare () {
 

@@ -1,4 +1,5 @@
 package org.oopBlueprints ;
+import static java.lang.Math.max;
 import static java.lang.Math.random;
 
 public class MinesweeperGrid {
@@ -6,6 +7,9 @@ public class MinesweeperGrid {
     int rows = 1;
     int cols = 1;
     int mines = 0;
+    int plantedFlags = 0 ;
+    boolean gameLost = false ;
+    boolean gameWon = false ;
 
     MinesweeperSquare[][] grid;
 
@@ -38,7 +42,37 @@ public class MinesweeperGrid {
     }
     public void printGrid () {
         // Print Header
-        System.out.println("Mines: " + this.mines);
+        System.out.println("Mines: " + this.mines + ", Planted Flags: " + plantedFlags);
+
+        // Print horizontal co-ord
+        if (rows > 9) { System.out.print(" "); }
+        System.out.print("  ");
+        for (int col = 0 ; col < cols ; ++col) {
+            if (col < 10) { System.out.print(" " + col + " ") ; }
+            else { System.out.print(col + " "); }
+        }
+        System.out.println();
+
+
+        // Iterate over all rows
+        for (int row = 0 ; row < rows ; ++row) {
+            // Print vertical co-ord
+            if (rows > 9 && row < 10) { System.out.print(" " + row + " ");}
+            else { System.out.print(row + " "); }
+
+            // Iterate over all columns
+            for (int col = 0 ; col < cols ; ++col) {
+                System.out.print(" " + grid[row][col].flag + " ");
+            }
+            System.out.println();
+        }
+        // Print footer
+        System.out.println("Use \"row col t\" to test, use \"row col f\" to plant a flag.");
+
+    }
+    public void printSolution () {
+        // Print Header
+        System.out.println("This is the solution.\nMines: " + this.mines);
 
         // Print horizontal co-ord
         System.out.print("  ");
@@ -55,7 +89,8 @@ public class MinesweeperGrid {
 
             // Iterate over all columns
             for (int col = 0 ; col < cols ; ++col) {
-                System.out.print(" " + grid[row][col].flag + " ");
+                if (grid[row][col].isMine == true) { System.out.print(" Q "); }
+                else { System.out.print("   "); }
             }
             System.out.println();
         }
@@ -63,8 +98,78 @@ public class MinesweeperGrid {
         System.out.println("Use \"row col t\" to test, use \"row col f\" to plant a flag.");
 
     }
-    public void printSolution () {
+    public void click(int row, int col, boolean plantFlag) {
+        // Are we simply marking a flag?
+        if (plantFlag == true) {
+            if (this.grid[row][col].flag == 'P') {
+                this.grid[row][col].flag = '.' ;
+                plantedFlags--;
+            } else if (this.grid[row][col].flag == '.') {
+                this.grid[row][col].flag = 'P' ;
+                plantedFlags++;
+            }
+        }
+        // Are we clicking for real?
+        else {
+            // Check if it is a mine
+            if (this.grid[row][col].isMine == true) {
+                this.grid[row][col].flag = 'Q' ;
+                gameLost = true ;
+            } else {
+                int adjMines = this.countAdjacentMines(row, col) ;
+                if (adjMines == 0) { this.grid[row][col].flag = ' ' ; }
+                else {this.grid[row][col].flag = (char)(adjMines + '0');}
+                if (adjMines == 0) {
+                    // Click all adjacent
+                    int startRow = Math.max(0, row-1);
+                    int   endRow = Math.min(this.rows-1, row+1);
+                    int startCol = Math.max(0, col-1);
+                    int   endCol = Math.min(this.cols-1, col+1);
 
+                    // Iterate over all columns
+                    for (int curRow = startRow ; curRow <= endRow ; ++curRow) {
+                        // Iterate over all columns
+                        for (int curCol = startCol ; curCol <= endCol ; ++curCol) {
+                            if (grid[curRow][curCol].flag == '.') {
+                                this.click(curRow, curCol, false);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    public int countAdjacentMines(int row, int col) {
+        int numMines = 0;
+        int startRow = Math.max(0, row-1);
+        int   endRow = Math.min(this.rows-1, row+1);
+        int startCol = Math.max(0, col-1);
+        int   endCol = Math.min(this.cols-1, col+1);
+
+        // Iterate over all columns
+        for (int curRow = startRow ; curRow <= endRow ; ++curRow) {
+            // Iterate over all columns
+            for (int curCol = startCol ; curCol <= endCol ; ++curCol) {
+                if (grid[curRow][curCol].isMine == true) { numMines++; }
+            }
+        }
+        return numMines;
+
+    }
+    public boolean checkWinCondition() {
+        // if every safe square has been tested then you win
+        // iterate over the rows
+
+        boolean gameWin = true ;
+
+        for (int row = 0 ; row < rows ; ++row) {
+            // Iterate over all columns
+            for (int col = 0 ; col < cols ; ++col) {
+                // check condition
+                if (this.grid[row][col].flag == '.' && this.grid[row][col].isMine == false) {gameWin = false ;}
+            }
+        }
+        return gameWin ;
     }
 }
 
