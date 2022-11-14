@@ -23,7 +23,7 @@ public class Main {
                 int colsSetup = 1000000 ;
                 int minesSetup = 1000000 ;
                 try {
-                    System.out.println("How many rows, columns and mines?\n(Input three whole numbers, rows and columns 40 or lower, bombs must all fit)");
+                    System.out.println("How many rows, columns and mines?\n(Input three whole numbers, rows and columns 40 or lower, mines must all fit)");
                     rowsSetup = input.nextInt();
                     colsSetup = input.nextInt();
                     minesSetup = input.nextInt();
@@ -31,7 +31,7 @@ public class Main {
                     System.out.println("I can do this all day. Please enter a valid setup.");
                     input.nextLine() ;
                 }
-                if (rowsSetup > 40 || colsSetup > 40 || minesSetup > rowsSetup * colsSetup) {
+                if (rowsSetup < 1 || colsSetup < 1 || rowsSetup > 40 || colsSetup > 40 || minesSetup >= rowsSetup * colsSetup) {
                     System.out.println("Your input wasn't quite correct. Please try again.");
                 }
                 else {
