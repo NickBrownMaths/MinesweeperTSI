@@ -30,7 +30,6 @@ public class MinesweeperGrid {
         while (minesAdded < this.mines) {
             int newMineRow = (int) Math.round(Math.random() * (this.rows - 1));
             int newMineCol = (int) Math.round(Math.random() * (this.cols - 1));
-            System.out.println("new mine @ " + newMineRow + " " + newMineCol);
             if (grid[newMineRow][newMineCol].isMine == false) {
                 grid[newMineRow][newMineCol].isMine = true;
                 ++minesAdded;
@@ -61,7 +60,7 @@ public class MinesweeperGrid {
             System.out.println();
         }
         // Print footer
-        System.out.println("Use r c to click, use r c f to plant a flag");
+        System.out.println("Use \"row col t\" to test, use \"row col f\" to plant a flag.");
 
     }
     public void printSolution () {
