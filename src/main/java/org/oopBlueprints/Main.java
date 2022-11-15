@@ -1,12 +1,11 @@
 package org.oopBlueprints ;
 import java.util.Scanner;
 
-public class Main {
+import
+
+public class Main extends Application{
     public static void main(String[] args) {
-        /*
-        Create your own playable version of minesweeper using an object-oriented approach. Your game should be able to
-        take input from the user, and show a visual game grid (achieving this with the console is fine)
-         */
+
 
         Scanner input = new Scanner(System.in) ;
 
