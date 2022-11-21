@@ -114,17 +114,22 @@ public class MinesweeperGrid {
     }
     public void click(int row, int col, boolean plantFlag) {
         // Are we simply marking a flag?
-        if (plantFlag == true) {
-            if (this.grid[row][col].flag == 'P') {
-                this.grid[row][col].flag = '.' ;
-                plantedFlags--;
-            } else if (this.grid[row][col].flag == '.') {
-                this.grid[row][col].flag = 'P' ;
-                plantedFlags++;
-            }
-        }
+        if (plantFlag == true) { flagClick(row, col); }
         // Are we clicking for real?
-        else {
+        else { revealClick(row, col); }
+    }
+    public void flagClick(int row, int col) {
+        if (this.grid[row][col].flag == 'P') {
+            this.grid[row][col].flag = '.' ;
+            plantedFlags--;
+        } else if (this.grid[row][col].flag == '.') {
+            this.grid[row][col].flag = 'P' ;
+            plantedFlags++;
+        }
+    }
+    public void revealClick(int row, int col){
+        // Check that is unrevealed
+        if (this.grid[row][col].flag == '.' ) {
             // if it's the first click, populate the mines
             if (populatedMines == false) {
                 this.populateMinesExcluding(row, col);
@@ -133,32 +138,37 @@ public class MinesweeperGrid {
 
             // Check if it is a mine
             if (this.grid[row][col].isMine == true) {
-                this.grid[row][col].flag = 'Q' ;
-                gameLost = true ;
+                this.grid[row][col].flag = 'Q';
+                gameLost = true;
             } else {
-                int adjMines = this.countAdjacentMines(row, col) ;
-                if (adjMines == 0) { this.grid[row][col].flag = ' ' ; }
-                else {this.grid[row][col].flag = (char)(adjMines + '0');}
-                if (adjMines == 0) {
-                    // Click all adjacent
-                    int startRow = Math.max(0, row-1);
-                    int   endRow = Math.min(this.rows-1, row+1);
-                    int startCol = Math.max(0, col-1);
-                    int   endCol = Math.min(this.cols-1, col+1);
-
-                    // Iterate over all columns
-                    for (int curRow = startRow ; curRow <= endRow ; ++curRow) {
-                        // Iterate over all columns
-                        for (int curCol = startCol ; curCol <= endCol ; ++curCol) {
-                            if (grid[curRow][curCol].flag == '.') {
-                                this.click(curRow, curCol, false);
-                            }
-                        }
-                    }
+                int adjMines = this.countAdjacentMines(row, col);
+                if (adjMines != 0) {
+                    this.grid[row][col].flag = (char) (adjMines + '0');
+                } else {
+                    this.grid[row][col].flag = ' ';
+                    revealClickAdjacent(row, col);
                 }
             }
         }
     }
+    public void revealClickAdjacent(int row, int col) {
+        // Click all adjacent
+        int startRow = Math.max(0, row-1);
+        int   endRow = Math.min(this.rows-1, row+1);
+        int startCol = Math.max(0, col-1);
+        int   endCol = Math.min(this.cols-1, col+1);
+
+        // Iterate over all columns
+        for (int curRow = startRow ; curRow <= endRow ; ++curRow) {
+            // Iterate over all columns
+            for (int curCol = startCol ; curCol <= endCol ; ++curCol) {
+                if (grid[curRow][curCol].flag == '.') {
+                    this.click(curRow, curCol, false);
+                }
+            }
+        }
+    }
+
     public int countAdjacentMines(int row, int col) {
         int numMines = 0;
         int startRow = Math.max(0, row-1);

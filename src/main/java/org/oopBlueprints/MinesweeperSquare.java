@@ -9,8 +9,4 @@ public class MinesweeperSquare {
     // P flag
     // 12345678 neighbour mines
     // . unknown
-
-    public void MinesweeperSquare () {
-
-    }
 }
