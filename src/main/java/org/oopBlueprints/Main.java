@@ -2,21 +2,13 @@ package org.oopBlueprints ;
 import java.util.Scanner;
 
 public class Main {
-
-       public static void main(String[] args) {
-
-
+    public static void main(String[] args) {
         Scanner input = new Scanner(System.in) ;
-
         MinesweeperGrid minesweeperGrid = new MinesweeperGrid(0, 0, 0) ;
-
         boolean stillPlaying = true ;
         boolean setupComplete = false;
-
         while (stillPlaying) {
-
             while (setupComplete == false) {
-
                 int rowsSetup = 1000000 ;
                 int colsSetup = 1000000 ;
                 int minesSetup = 1000000 ;
