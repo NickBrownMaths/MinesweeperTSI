@@ -168,7 +168,6 @@ public class MinesweeperGrid {
             }
         }
     }
-
     public int countAdjacentMines(int row, int col) {
         int numMines = 0;
         int startRow = Math.max(0, row-1);
@@ -200,5 +199,17 @@ public class MinesweeperGrid {
             }
         }
         return gameWin ;
+    }
+    public int getCols() {
+        return cols;
+    }
+    public int getRows() {
+        return rows;
+    }
+    public int getMines() {
+        return mines;
+    }
+    public MinesweeperSquare[][] getGrid() {
+        return grid;
     }
 }

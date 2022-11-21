@@ -9,13 +9,13 @@ public class Main {
         boolean setupComplete = false;
         while (stillPlaying) {
             while (setupComplete == false) {
-                int rowsSetup = 1000000 ;
                 int colsSetup = 1000000 ;
+                int rowsSetup = 1000000 ;
                 int minesSetup = 1000000 ;
                 try {
                     System.out.println("How many rows, columns and mines?\n(Input three whole numbers, rows and columns 40 or lower, mines must all fit)");
-                    rowsSetup = input.nextInt();
                     colsSetup = input.nextInt();
+                    rowsSetup = input.nextInt();
                     minesSetup = input.nextInt();
                 } catch (Exception e) {
                     System.out.println("I can do this all day. Please enter a valid setup.");
