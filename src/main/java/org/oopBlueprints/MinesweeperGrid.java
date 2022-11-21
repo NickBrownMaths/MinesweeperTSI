@@ -200,6 +200,8 @@ public class MinesweeperGrid {
         }
         return gameWin ;
     }
+
+    // Getters
     public int getCols() {
         return cols;
     }

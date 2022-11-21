@@ -12,11 +12,9 @@ public class GridTest {
     } ;
     @Test
     public void testPopulateMinesExcluding() {
-
         for (int i = 0 ; i < 10000 ; ++i) {
             MinesweeperGrid testGrid = new MinesweeperGrid(24, 30, 99);
             testGrid.populateMinesExcluding(8, 10);
-
             Assertions.assertEquals(99, testGrid.getMines(), "Wrong number of mines on loop #" + i) ;
             Assertions.assertFalse(testGrid.getGrid()[8][10].isMine(), "Mine placed in wrong location on loop #" + i);
         }
