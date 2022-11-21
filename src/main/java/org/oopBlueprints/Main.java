@@ -1,10 +1,9 @@
 package org.oopBlueprints ;
 import java.util.Scanner;
 
-import
+public class Main {
 
-public class Main extends Application{
-    public static void main(String[] args) {
+       public static void main(String[] args) {
 
 
         Scanner input = new Scanner(System.in) ;
@@ -37,11 +36,7 @@ public class Main extends Application{
                     setupComplete = true ;
                     minesweeperGrid = new MinesweeperGrid(rowsSetup, colsSetup, minesSetup) ;
                 }
-
-
             }
-
-
             minesweeperGrid.printGrid();
 
             boolean noValidCommand = true ;

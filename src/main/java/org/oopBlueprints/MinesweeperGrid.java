@@ -43,11 +43,10 @@ public class MinesweeperGrid {
     }
     public void populateMinesExcluding(int exclRow, int exclCol) {
         int minesAdded = 0 ;
-        int cntr = 0 ;
+        // set the excluded co-ord as a mine without incrementing mine counter
         grid[exclRow][exclCol].isMine = true ;
 
         while (minesAdded < this.mines) {
-            cntr++;
             int newMineRow = (int) Math.round(Math.random() * (this.rows - 1));
             int newMineCol = (int) Math.round(Math.random() * (this.cols - 1));
             if (grid[newMineRow][newMineCol].isMine == false) {
@@ -55,6 +54,7 @@ public class MinesweeperGrid {
                 ++minesAdded;
             }
         }
+        // unset the excluded co-ord
         grid[exclRow][exclCol].isMine = false ;
     }
     public void printGrid () {
@@ -192,17 +192,3 @@ public class MinesweeperGrid {
         return gameWin ;
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
